@@ -1,8 +1,9 @@
 const express = require('express')
 const { ROUTERS } = require('../../config/router')
+const userController = require('../../controllers/user')
 
 const router = express.Router()
 
-router.get(ROUTERS.USER, (req, res) => res.send('Hello i am from User router'))
+router.get(ROUTERS.USER, userController)
 
 module.exports = router
