@@ -1,5 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const { readdirSync } = require('fs')
+
+// Import Config
+const { ROOT_API_PATH } = require('./config/router')
 
 // import ['dotenv'] package
 const dotenv = require('dotenv')
@@ -19,8 +23,19 @@ mongoose
   .then(() => console.log('DB Connected'))
   .catch(err => console.log('DB Connection Error: ', err))
 
+// apply middlewares
+// app.use(cors())
+// app.use(express.json())
+// app.use(cookieParser())
+// app.use(morgan('dev'))
+
+// All routers call in one function
+readdirSync('./routes').map(route =>
+  app.use(ROOT_API_PATH, require(`./routes/${route}`))
+)
+
 // Craete Router ['/']
-app.get('/', (req, res) => res.send('Hello node'))
+app.get('/', (req, res) => res.send('Hello Node APP'))
 
 // Craete App Listen PORT
 const port = process.env.PORT || 8000
