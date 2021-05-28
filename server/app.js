@@ -1,6 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
+var cookieParser = require('cookie-parser')
 const { readdirSync } = require('fs')
+const morgan = require('morgan')
+const cors = require('cors')
 
 // Import Config
 const { ROOT_API_PATH } = require('./config/router')
@@ -24,12 +27,13 @@ mongoose
   .catch(err => console.log('DB Connection Error: ', err))
 
 // apply middlewares
-// app.use(cors())
-// app.use(express.json())
-// app.use(cookieParser())
-// app.use(morgan('dev'))
+app.use(cors())
+app.use(express.json())
+app.use(cookieParser())
+app.use(morgan('dev'))
 
 // All routers call in one function
+// Add router path ['/api']
 readdirSync('./routes').map(route =>
   app.use(ROOT_API_PATH, require(`./routes/${route}`))
 )

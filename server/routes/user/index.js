@@ -1,9 +1,10 @@
 const express = require('express')
 const { ROUTERS } = require('../../config/router')
-const userController = require('../../controllers/user')
+const controllers = require('../../controllers')
 
 const router = express.Router()
 
-router.get(ROUTERS.USER, userController)
+// Add Signup router path ['/signup']
+router.get(ROUTERS.SIGNUP, controllers.signUp)
 
 module.exports = router
