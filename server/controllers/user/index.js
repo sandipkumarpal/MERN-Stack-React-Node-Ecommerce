@@ -1,4 +1,5 @@
 const User = require('../../models/user')
+const { errorHandler } = require('../../helpers/handleErrors')
 
 const signUp = (req, res) => {
   console.log('req.body', req.body)
@@ -7,7 +8,7 @@ const signUp = (req, res) => {
   console.log({ user })
   user.save((err, user) => {
     if (err) {
-      return res.status(400).json({ err })
+      return res.status(400).json({ err: errorHandler(err) })
     }
     res.json({ user })
   })
