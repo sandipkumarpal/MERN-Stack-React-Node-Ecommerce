@@ -23,7 +23,7 @@ const userSchema = new Schema(
     },
     phone: {
       type: String,
-      require: true
+      require: false
     },
     picture: {
       type: String,
@@ -49,4 +49,5 @@ const userSchema = new Schema(
   { timestamps: true }
 )
 
-module.exports = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema)
+module.exports = User
