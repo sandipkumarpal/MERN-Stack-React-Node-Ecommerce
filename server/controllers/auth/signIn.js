@@ -1,4 +1,4 @@
-const User = require('../../models/user')
+const Auth = require('../../models/auth')
 const { errorHandler } = require('../../helpers/handleErrors')
 const { comparePassword } = require('../../helpers/auth')
 const jwt = require('jsonwebtoken')
@@ -8,7 +8,7 @@ const signIn = async (req, res) => {
   try {
     const { password, email } = req.body
     // Validation
-    let user = await User.findOne({ email }).exec()
+    let user = await Auth.findOne({ email }).exec()
     if (!user) return res.status(400).send('No User found! Please try again.')
 
     const checkedhashPassword = await comparePassword(password, user.password)

@@ -1,4 +1,4 @@
-const User = require('../../models/user')
+const Auth = require('../../models/auth')
 const { errorHandler } = require('../../helpers/handleErrors')
 const { getHashedPassword } = require('../../helpers/auth')
 
@@ -24,7 +24,7 @@ const signUp = async (req, res) => {
       return res.status(400).send('Email not')
     }
 
-    let userExist = await User.findOne({ email }).exec()
+    let userExist = await Auth.findOne({ email }).exec()
     if (userExist) return res.status(400).send('User Email is taken!')
 
     const hashedPassword = await getHashedPassword(password)
