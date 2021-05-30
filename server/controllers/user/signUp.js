@@ -1,6 +1,6 @@
 const User = require('../../models/user')
 const { errorHandler } = require('../../helpers/handleErrors')
-const { getHashedPassword, comparePassword } = require('../../helpers/auth')
+const { getHashedPassword } = require('../../helpers/auth')
 
 const emailRgx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 

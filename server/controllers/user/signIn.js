@@ -2,6 +2,7 @@ const User = require('../../models/user')
 const { errorHandler } = require('../../helpers/handleErrors')
 const { comparePassword } = require('../../helpers/auth')
 const jwt = require('jsonwebtoken')
+const { JWT_TOKEN_KEY } = require('../../config/app')
 
 const signIn = async (req, res) => {
   try {
@@ -22,7 +23,7 @@ const signIn = async (req, res) => {
 
     user.password = undefined
 
-    res.cookie('token', token, {
+    res.cookie(JWT_TOKEN_KEY, token, {
       httpOnly: true
     })
     console.log({ user, token })
