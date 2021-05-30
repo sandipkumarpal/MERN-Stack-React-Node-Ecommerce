@@ -28,7 +28,7 @@ const signUp = async (req, res) => {
     if (userExist) return res.status(400).send('User Email is taken!')
 
     const hashedPassword = await getHashedPassword(password)
-    const user = new User({ name, email, password: hashedPassword })
+    const user = new Auth({ name, email, password: hashedPassword })
 
     await user.save()
     return res.json({ ok: true })
