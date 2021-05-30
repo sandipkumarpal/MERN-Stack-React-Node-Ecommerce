@@ -1,2 +1,4 @@
-module.exports = { signUp: require('./user/signUp') }
-module.exports = { signIn: require('./user/signIn') }
+module.exports = {
+  signUp: require('./user/signUp'),
+  signIn: require('./user/signIn')
+}

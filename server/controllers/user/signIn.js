@@ -1,37 +1,32 @@
 const User = require('../../models/user')
 const { errorHandler } = require('../../helpers/handleErrors')
-const { getHashedPassword, comparePassword } = require('../../helpers/auth')
-
-const emailRgx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+const { comparePassword } = require('../../helpers/auth')
+const jwt = require('jsonwebtoken')
 
 const signIn = async (req, res) => {
-  console.log('req.body', req.body)
   try {
-    const { name, password, email } = req.body
+    const { password, email } = req.body
     // Validation
-    if (!name && !password && !email) {
-      return res
-        .status(400)
-        .send('Name, Password, Email and Phone number required')
-    }
-    if (!name) return res.status(400).send('Name is required!')
-    if (!password || password.length < 6) {
-      return res
-        .status(400)
-        .send('Password is required and should be min 6 characters long')
-    }
-    if (!emailRgx.test(email)) {
-      return res.status(400).send('Email not')
+    let user = await User.findOne({ email }).exec()
+    if (!user) return res.status(400).send('No User found! Please try again.')
+
+    const checkedhashPassword = await comparePassword(password, user.password)
+
+    if (!checkedhashPassword) {
+      return res.status(400).send('Wrong Password!!')
     }
 
-    let userExist = await User.findOne({ email }).exec()
-    if (userExist) return res.status(400).send('User Email is taken!')
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '7d'
+    })
 
-    const hashedPassword = await getHashedPassword(password)
-    const user = new User({ name, email, password: hashedPassword })
+    user.password = undefined
 
-    await user.save()
-    return res.json({ ok: true })
+    res.cookie('token', token, {
+      httpOnly: true
+    })
+    console.log({ user, token })
+    return res.json({ user, token })
   } catch (error) {
     console.log({ error })
     return res.status(400).send(errorHandler(error))
