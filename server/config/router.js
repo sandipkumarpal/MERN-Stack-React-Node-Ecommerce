@@ -4,7 +4,9 @@ const ROUTERS = {
   SIGNUP: '/signup',
   SIGNIN: '/signin',
   SIGNOUT: '/signout',
-  USER: '/user'
+  USER: '/user',
+  CATEGORY: '/category',
+  CATEGORY_CREATE: '/category/create'
 }
 
 module.exports = { ROOT_API_PATH, ROUTERS }
