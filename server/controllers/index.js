@@ -4,5 +4,6 @@ module.exports = {
   signOut: require('./auth/signOut'),
   userById: require('./user/userById'),
   userDetails: require('./user/userDetails'),
-  categoryCreate: require('./category/categoryCreate')
+  categoryCreate: require('./category/categoryCreate'),
+  productCreate: require('./product/productCreate')
 }
