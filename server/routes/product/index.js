@@ -7,6 +7,7 @@ const { checkedSignIn } = require('../../middlewares/checkedSignIn')
 const router = express.Router()
 
 const userId = 'userId'
+const productId = 'productId'
 
 // Add Product router path ['/product/create/:id']
 router.post(
@@ -16,7 +17,11 @@ router.post(
   checkedAdmin,
   controllers.productCreate
 )
+// Get Product router path ['/product/:id']
+
+router.get(`${ROUTERS.PRODUCT}/:${productId}`, controllers.productDetails)
 
 router.param(userId, controllers.userById)
+router.param(productId, controllers.productById)
 
 module.exports = router
