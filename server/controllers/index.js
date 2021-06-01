@@ -7,5 +7,6 @@ module.exports = {
   categoryCreate: require('./category/categoryCreate'),
   productCreate: require('./product/productCreate'),
   productById: require('./product/productById'),
-  productDetails: require('./product/productDetails')
+  productDetails: require('./product/productDetails'),
+  productDelete: require('./product/productDelete')
 }
