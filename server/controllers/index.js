@@ -5,6 +5,8 @@ module.exports = {
   userById: require('./user/userById'),
   userDetails: require('./user/userDetails'),
   categoryCreate: require('./category/categoryCreate'),
+  categoryById: require('./category/categoryById'),
+  categoryDetails: require('./category/categoryDetails'),
   productCreate: require('./product/productCreate'),
   productById: require('./product/productById'),
   productDetails: require('./product/productDetails'),

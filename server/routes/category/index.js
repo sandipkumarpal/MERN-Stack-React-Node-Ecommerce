@@ -8,8 +8,9 @@ const { checkedAuth } = require('../../middlewares/checkedAuth')
 const { checkedSignIn } = require('../../middlewares/checkedSignIn')
 
 const userId = 'userId'
+const categoryId = 'categoryId'
 
-// Add Category router path ['/category/create']
+// Add Category router path ['/category/create/:userId']
 router.post(
   `${ROUTERS.CATEGORY_CREATE}/:${userId}`,
   checkedSignIn,
@@ -18,5 +19,9 @@ router.post(
   controllers.categoryCreate
 )
 router.param(userId, controllers.userById)
+
+// Add Category router path ['/category/:categoryId']
+router.get(`${ROUTERS.CATEGORY}/:${categoryId}`, controllers.categoryDetails)
+router.param(categoryId, controllers.categoryById)
 
 module.exports = router
