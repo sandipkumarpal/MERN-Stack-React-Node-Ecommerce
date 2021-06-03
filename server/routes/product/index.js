@@ -26,6 +26,13 @@ router.delete(
   checkedAdmin,
   controllers.productDelete
 )
+router.put(
+  `${ROUTERS.PRODUCT}/:${productId}/:${userId}`,
+  checkedSignIn,
+  checkedAuth,
+  checkedAdmin,
+  controllers.productUpdate
+)
 
 router.param(userId, controllers.userById)
 router.param(productId, controllers.productById)
