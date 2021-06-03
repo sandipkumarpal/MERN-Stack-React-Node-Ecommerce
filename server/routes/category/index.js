@@ -24,4 +24,25 @@ router.param(userId, controllers.userById)
 router.get(`${ROUTERS.CATEGORY}/:${categoryId}`, controllers.categoryDetails)
 router.param(categoryId, controllers.categoryById)
 
+// Add Category router path ['/category/:categoryId/:userId']
+router.put(
+  `${ROUTERS.CATEGORY}/:${categoryId}/:${userId}`,
+  checkedSignIn,
+  checkedAuth,
+  checkedAdmin,
+  controllers.categoryUpdate
+)
+
+// Add Category router path ['/category/:categoryId/:userId']
+router.delete(
+  `${ROUTERS.CATEGORY}/:${categoryId}/:${userId}`,
+  checkedSignIn,
+  checkedAuth,
+  checkedAdmin,
+  controllers.categoryRemove
+)
+
+// Add Category router path ['/categorys']
+router.get(`${ROUTERS.CATEGORIES}`, controllers.categories)
+
 module.exports = router

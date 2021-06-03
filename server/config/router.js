@@ -7,6 +7,7 @@ const ROUTERS = {
   USER: '/user',
   CATEGORY: '/category',
   CATEGORY_CREATE: '/category/create',
+  CATEGORIES: '/categories',
   PRODUCT: '/product',
   PRODUCT_CREATE: '/product/create'
 }
