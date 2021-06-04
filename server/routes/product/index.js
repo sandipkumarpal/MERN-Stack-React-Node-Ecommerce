@@ -51,5 +51,9 @@ router.get(
   `${ROUTERS.PRODUCTS}/related/:productById`,
   controllers.productsRelated
 )
+router.get(
+  `${ROUTERS.PRODUCTS}${ROUTERS.CATEGORIES}`,
+  controllers.productsCategories
+)
 
 module.exports = router
