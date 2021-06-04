@@ -37,4 +37,14 @@ router.put(
 router.param(userId, controllers.userById)
 router.param(productId, controllers.productById)
 
+/*
+ * sell
+ * router:  /products?sortBy=sold&order=[desc|Asc]&limit=4
+ * arrival
+ * router:  /products?sortBy=createdAt&order=[desc|Asc]&limit=4
+ *
+ * Check if no params are sent THEN all products are returned
+ */
+router.get(`${ROUTERS.PRODUCTS}`, controllers.products)
+
 module.exports = router

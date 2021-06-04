@@ -9,7 +9,8 @@ const ROUTERS = {
   CATEGORY_CREATE: '/category/create',
   CATEGORIES: '/categories',
   PRODUCT: '/product',
-  PRODUCT_CREATE: '/product/create'
+  PRODUCT_CREATE: '/product/create',
+  PRODUCTS: '/products'
 }
 
 module.exports = { ROOT_API_PATH, ROUTERS }

@@ -14,5 +14,6 @@ module.exports = {
   productById: require('./product/productById'),
   productDetails: require('./product/productDetails'),
   productDelete: require('./product/productDelete'),
-  productUpdate: require('./product/productUpdate')
+  productUpdate: require('./product/productUpdate'),
+  products: require('./product/products')
 }

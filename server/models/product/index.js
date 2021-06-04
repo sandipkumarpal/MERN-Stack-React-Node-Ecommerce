@@ -35,6 +35,10 @@ const productSchema = new Schema(
     shipping: {
       require: false,
       type: Boolean
+    },
+    sold: {
+      type: Number,
+      default: 0
     }
   },
   { timestamps: true }
