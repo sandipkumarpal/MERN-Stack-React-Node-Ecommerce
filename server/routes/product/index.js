@@ -47,4 +47,9 @@ router.param(productId, controllers.productById)
  */
 router.get(`${ROUTERS.PRODUCTS}`, controllers.products)
 
+router.get(
+  `${ROUTERS.PRODUCTS}/related/:productById`,
+  controllers.productsRelated
+)
+
 module.exports = router
