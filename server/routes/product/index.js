@@ -48,7 +48,7 @@ router.param(productId, controllers.productById)
 router.get(`${ROUTERS.PRODUCTS}`, controllers.products)
 
 router.get(
-  `${ROUTERS.PRODUCTS}/related/:productById`,
+  `${ROUTERS.PRODUCTS}/related/:${productId}`,
   controllers.productsRelated
 )
 
@@ -58,5 +58,7 @@ router.get(
 )
 
 router.post(`${ROUTERS.PRODUCTS}/by/search`, controllers.productBySearch)
+
+router.get(`${ROUTERS.PRODUCT}/photo/:${productId}`, controllers.productPhoto)
 
 module.exports = router
