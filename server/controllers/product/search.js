@@ -1,6 +1,6 @@
 const Product = require('../../models/product')
 
-const productBySearch = (req, res) => {
+const search = (req, res) => {
   const {
     body: { order = 'desc', sortBy = '_id', limit = 100, skip, filters }
   } = req
@@ -37,4 +37,4 @@ const productBySearch = (req, res) => {
     })
 }
 
-module.exports = productBySearch
+module.exports = search

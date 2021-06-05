@@ -1,6 +1,6 @@
 const express = require('express')
 const { ROUTER_PARAMS } = require('../../config/router')
-const controllers = require('../../controllers')
+const { product, user } = require('../../controllers')
 const { checkedAdmin } = require('../../middlewares/checkedAdmin')
 const { checkedAuth } = require('../../middlewares/checkedAuth')
 const { checkedSignIn } = require('../../middlewares/checkedSignIn')
@@ -14,7 +14,7 @@ const {
   PRODUCTS_CATEGORIES,
   PRODUCTS_BY_SEARCH,
   PRODUCT_PHOTO
-} = require('./endPoints')
+} = require('./requestPaths')
 const router = express.Router()
 
 // Add Product router path ['/product/create/:productId']
@@ -23,27 +23,27 @@ router.post(
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
-  controllers.productCreate
+  product.create
 )
 // Get Product router path ['/product/:productId/:userId']
-router.get(PRODUCT_DETAILS, controllers.productDetails)
+router.get(PRODUCT_DETAILS, product.productDetails)
 router.delete(
   PRODUCT_DELETE,
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
-  controllers.productDelete
+  product.delete
 )
 router.put(
   PRODUCT_UPDATE,
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
-  controllers.productUpdate
+  product.update
 )
 
-router.param(ROUTER_PARAMS.USER_ID, controllers.userById)
-router.param(ROUTER_PARAMS.PRODUCT_ID, controllers.productById)
+router.param(ROUTER_PARAMS.USER_ID, user.userId)
+router.param(ROUTER_PARAMS.PRODUCT_ID, product.productId)
 
 /*
  * sell
@@ -53,14 +53,14 @@ router.param(ROUTER_PARAMS.PRODUCT_ID, controllers.productById)
  *
  * Check if no params are sent THEN all products are returned
  */
-router.get(PRODUCTS, controllers.products)
+router.get(PRODUCTS, product.products)
 
-router.get(PRODUCTS_RELATED, controllers.productsRelated)
+router.get(PRODUCTS_RELATED, product.related)
 
-router.get(PRODUCTS_CATEGORIES, controllers.productsCategories)
+router.get(PRODUCTS_CATEGORIES, product.categories)
 
-router.post(PRODUCTS_BY_SEARCH, controllers.productBySearch)
+router.post(PRODUCTS_BY_SEARCH, product.search)
 
-router.get(PRODUCT_PHOTO, controllers.productPhoto)
+router.get(PRODUCT_PHOTO, product.photo)
 
 module.exports = router

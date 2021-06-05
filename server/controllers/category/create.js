@@ -1,7 +1,7 @@
 const { errorHandler } = require('../../helpers/handleErrors')
 const Category = require('../../models/category')
 
-const categoryCreate = async (req, res) => {
+const create = async (req, res) => {
   try {
     const createCategory = new Category(req.body)
     createCategory.save((err, data) => {
@@ -16,4 +16,4 @@ const categoryCreate = async (req, res) => {
   }
 }
 
-module.exports = categoryCreate
+module.exports = create

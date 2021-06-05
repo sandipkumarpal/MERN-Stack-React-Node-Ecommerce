@@ -1,7 +1,7 @@
 const { errorHandler } = require('../../helpers/handleErrors')
 const Category = require('../../models/category')
 
-const categoryRemove = async (req, res) => {
+const remove = async (req, res) => {
   const category = req.category
   category.remove((err, deleteCategory) => {
     if (err || !product) {
@@ -11,4 +11,4 @@ const categoryRemove = async (req, res) => {
   })
 }
 
-module.exports = categoryRemove
+module.exports = remove

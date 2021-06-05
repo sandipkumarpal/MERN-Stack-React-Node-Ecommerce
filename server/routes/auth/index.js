@@ -1,11 +1,12 @@
 const express = require('express')
-const controllers = require('../../controllers')
-const { SIGNUP, SIGNIN, SIGNOUT } = require('./endPoints')
+const { auth } = require('../../controllers')
+const requestPaths = require('./requestPaths')
+
 const router = express.Router()
 
 // Add Signup router path ['/signup']
-router.post(SIGNUP, controllers.signUp)
-router.post(SIGNIN, controllers.signIn)
-router.get(SIGNOUT, controllers.signOut)
+router.post(requestPaths.SIGNUP, auth.signUp)
+router.post(requestPaths.SIGNIN, auth.signIn)
+router.get(requestPaths.SIGNOUT, auth.signOut)
 
 module.exports = router

@@ -1,6 +1,6 @@
 const Product = require('../../models/product')
 
-const productById = (req, res, next, id) => {
+const productId = (req, res, next, id) => {
   Product.findById(id).exec((err, product) => {
     if (err || !product) {
       return res.status(400).json({ error: 'Product not found!' })
@@ -10,4 +10,4 @@ const productById = (req, res, next, id) => {
   })
 }
 
-module.exports = productById
+module.exports = productId

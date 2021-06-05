@@ -1,6 +1,6 @@
 const Auth = require('../../models/auth')
 
-const userUpdate = (req, res) => {
+const update = (req, res) => {
   const {
     profile: { _id },
     body
@@ -20,4 +20,4 @@ const userUpdate = (req, res) => {
   )
 }
 
-module.exports = userUpdate
+module.exports = update

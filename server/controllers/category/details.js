@@ -1,7 +1,7 @@
 const Category = require('../../models/category')
 
-const categoryDetails = async (req, res) => {
+const details = async (req, res) => {
   return res.json(req.category)
 }
 
-module.exports = categoryDetails
+module.exports = details

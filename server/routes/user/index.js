@@ -1,10 +1,10 @@
 const express = require('express')
 const { ROUTER_PARAMS } = require('../../config/router')
-const controllers = require('../../controllers')
+const { user } = require('../../controllers')
 const { checkedAdmin } = require('../../middlewares/checkedAdmin')
 const { checkedAuth } = require('../../middlewares/checkedAuth')
 const { checkedSignIn } = require('../../middlewares/checkedSignIn')
-const { USER_SECRET, USER_DETAILS, USER_UPDATE } = require('./endPoints')
+const { USER_SECRET, USER_DETAILS, USER_UPDATE } = require('./requestPaths')
 const router = express.Router()
 
 // Add User router path ['/user/:id']
@@ -13,12 +13,12 @@ router.get(
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
-  controllers.userSecretDetails
+  user.userSecretDetails
 )
 
-router.get(USER_DETAILS, checkedSignIn, checkedAuth, controllers.userDetails)
-router.put(USER_UPDATE, checkedSignIn, checkedAuth, controllers.userUpdate)
+router.get(USER_DETAILS, checkedSignIn, checkedAuth, user.userDetails)
+router.put(USER_UPDATE, checkedSignIn, checkedAuth, user.userUpdate)
 
-router.param(ROUTER_PARAMS.USER_ID, controllers.userById)
+router.param(ROUTER_PARAMS.USER_ID, user.userById)
 
 module.exports = router

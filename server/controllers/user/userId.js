@@ -1,6 +1,6 @@
 const Auth = require('../../models/auth')
 
-const userById = (req, res, next, id) => {
+const userId = (req, res, next, id) => {
   Auth.findById(id).exec((err, user) => {
     console.log({ user })
     if (err || !user) {
@@ -11,4 +11,4 @@ const userById = (req, res, next, id) => {
   })
 }
 
-module.exports = userById
+module.exports = userId

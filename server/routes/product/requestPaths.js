@@ -1,5 +1,5 @@
 const { ROUTER_PARAMS } = require('../../config/router')
-const { CATEGORIES } = require('../category/endPoints')
+const { CATEGORIES } = require('../category/requestPaths')
 
 const PRODUCT = '/product'
 const PRODUCT_CREATE = `${PRODUCT}/create/:${ROUTER_PARAMS.USER_ID}`

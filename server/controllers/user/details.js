@@ -1,7 +1,7 @@
 const Auth = require('../../models/auth')
 
-const userDetails = (req, res) => {
+const details = (req, res) => {
   res.json({ user: req.profile })
 }
 
-module.exports = userDetails
+module.exports = details
