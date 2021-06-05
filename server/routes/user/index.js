@@ -13,12 +13,12 @@ router.get(
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
-  user.userSecretDetails
+  user.secretDetails
 )
 
-router.get(USER_DETAILS, checkedSignIn, checkedAuth, user.userDetails)
-router.put(USER_UPDATE, checkedSignIn, checkedAuth, user.userUpdate)
+router.get(USER_DETAILS, checkedSignIn, checkedAuth, user.details)
+router.put(USER_UPDATE, checkedSignIn, checkedAuth, user.update)
 
-router.param(ROUTER_PARAMS.USER_ID, user.userById)
+router.param(ROUTER_PARAMS.USER_ID, user.userId)
 
 module.exports = router

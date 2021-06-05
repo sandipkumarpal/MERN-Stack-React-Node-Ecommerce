@@ -23,11 +23,11 @@ router.post(
   checkedAdmin,
   category.create
 )
-router.param(ROUTER_PARAMS.USER_ID, user.userById)
+router.param(ROUTER_PARAMS.USER_ID, user.userId)
 
 // Add Category router path ['/category/:categoryId']
-router.get(CATEGORY_DETAILS, category.categoryDetails)
-router.param(ROUTER_PARAMS.CATEGORY_ID, category.categoryById)
+router.get(CATEGORY_DETAILS, category.details)
+router.param(ROUTER_PARAMS.CATEGORY_ID, category.categoryId)
 
 // Add Category router path ['/category/:categoryId/:userId']
 router.put(

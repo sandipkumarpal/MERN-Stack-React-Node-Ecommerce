@@ -26,7 +26,7 @@ router.post(
   product.create
 )
 // Get Product router path ['/product/:productId/:userId']
-router.get(PRODUCT_DETAILS, product.productDetails)
+router.get(PRODUCT_DETAILS, product.details)
 router.delete(
   PRODUCT_DELETE,
   checkedSignIn,
