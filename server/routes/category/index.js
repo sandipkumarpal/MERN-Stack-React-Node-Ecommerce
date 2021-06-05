@@ -1,32 +1,37 @@
 const express = require('express')
-const { ROUTERS } = require('../../config/router')
+const { ROUTER_PARAMS } = require('../../config/router')
 const controllers = require('../../controllers')
-const router = express.Router()
+const {
+  CATEGORY_CREATE,
+  CATEGORIES,
+  CATEGORY_DETAILS,
+  CATEGORY_UPDATE,
+  CATEGORY_DELETE
+} = require('./endPoints')
 
 const { checkedAdmin } = require('../../middlewares/checkedAdmin')
 const { checkedAuth } = require('../../middlewares/checkedAuth')
 const { checkedSignIn } = require('../../middlewares/checkedSignIn')
 
-const userId = 'userId'
-const categoryId = 'categoryId'
+const router = express.Router()
 
 // Add Category router path ['/category/create/:userId']
 router.post(
-  `${ROUTERS.CATEGORY_CREATE}/:${userId}`,
+  CATEGORY_CREATE,
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
   controllers.categoryCreate
 )
-router.param(userId, controllers.userById)
+router.param(ROUTER_PARAMS.USER_ID, controllers.userById)
 
 // Add Category router path ['/category/:categoryId']
-router.get(`${ROUTERS.CATEGORY}/:${categoryId}`, controllers.categoryDetails)
-router.param(categoryId, controllers.categoryById)
+router.get(CATEGORY_DETAILS, controllers.categoryDetails)
+router.param(ROUTER_PARAMS.CATEGORY_ID, controllers.categoryById)
 
 // Add Category router path ['/category/:categoryId/:userId']
 router.put(
-  `${ROUTERS.CATEGORY}/:${categoryId}/:${userId}`,
+  CATEGORY_UPDATE,
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
@@ -35,7 +40,7 @@ router.put(
 
 // Add Category router path ['/category/:categoryId/:userId']
 router.delete(
-  `${ROUTERS.CATEGORY}/:${categoryId}/:${userId}`,
+  CATEGORY_DELETE,
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
@@ -43,6 +48,6 @@ router.delete(
 )
 
 // Add Category router path ['/categorys']
-router.get(`${ROUTERS.CATEGORIES}`, controllers.categories)
+router.get(CATEGORIES, controllers.categories)
 
 module.exports = router

@@ -1,11 +1,11 @@
 const express = require('express')
-const { ROUTERS } = require('../../config/router')
 const controllers = require('../../controllers')
+const { SIGNUP, SIGNIN, SIGNOUT } = require('./endPoints')
 const router = express.Router()
 
 // Add Signup router path ['/signup']
-router.post(ROUTERS.SIGNUP, controllers.signUp)
-router.post(ROUTERS.SIGNIN, controllers.signIn)
-router.get(ROUTERS.SIGNOUT, controllers.signOut)
+router.post(SIGNUP, controllers.signUp)
+router.post(SIGNIN, controllers.signIn)
+router.get(SIGNOUT, controllers.signOut)
 
 module.exports = router

@@ -1,41 +1,49 @@
 const express = require('express')
-const { ROUTERS } = require('../../config/router')
+const { ROUTER_PARAMS } = require('../../config/router')
 const controllers = require('../../controllers')
 const { checkedAdmin } = require('../../middlewares/checkedAdmin')
 const { checkedAuth } = require('../../middlewares/checkedAuth')
 const { checkedSignIn } = require('../../middlewares/checkedSignIn')
+const {
+  PRODUCT_CREATE,
+  PRODUCT_DETAILS,
+  PRODUCT_UPDATE,
+  PRODUCT_DELETE,
+  PRODUCTS,
+  PRODUCTS_RELATED,
+  PRODUCTS_CATEGORIES,
+  PRODUCTS_BY_SEARCH,
+  PRODUCT_PHOTO
+} = require('./endPoints')
 const router = express.Router()
-
-const userId = 'userId'
-const productId = 'productId'
 
 // Add Product router path ['/product/create/:productId']
 router.post(
-  `${ROUTERS.PRODUCT_CREATE}/:${userId}`,
+  PRODUCT_CREATE,
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
   controllers.productCreate
 )
 // Get Product router path ['/product/:productId/:userId']
-router.get(`${ROUTERS.PRODUCT}/:${productId}`, controllers.productDetails)
+router.get(PRODUCT_DETAILS, controllers.productDetails)
 router.delete(
-  `${ROUTERS.PRODUCT}/:${productId}/:${userId}`,
+  PRODUCT_DELETE,
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
   controllers.productDelete
 )
 router.put(
-  `${ROUTERS.PRODUCT}/:${productId}/:${userId}`,
+  PRODUCT_UPDATE,
   checkedSignIn,
   checkedAuth,
   checkedAdmin,
   controllers.productUpdate
 )
 
-router.param(userId, controllers.userById)
-router.param(productId, controllers.productById)
+router.param(ROUTER_PARAMS.USER_ID, controllers.userById)
+router.param(ROUTER_PARAMS.PRODUCT_ID, controllers.productById)
 
 /*
  * sell
@@ -45,20 +53,14 @@ router.param(productId, controllers.productById)
  *
  * Check if no params are sent THEN all products are returned
  */
-router.get(`${ROUTERS.PRODUCTS}`, controllers.products)
+router.get(PRODUCTS, controllers.products)
 
-router.get(
-  `${ROUTERS.PRODUCTS}/related/:${productId}`,
-  controllers.productsRelated
-)
+router.get(PRODUCTS_RELATED, controllers.productsRelated)
 
-router.get(
-  `${ROUTERS.PRODUCTS}${ROUTERS.CATEGORIES}`,
-  controllers.productsCategories
-)
+router.get(PRODUCTS_CATEGORIES, controllers.productsCategories)
 
-router.post(`${ROUTERS.PRODUCTS}/by/search`, controllers.productBySearch)
+router.post(PRODUCTS_BY_SEARCH, controllers.productBySearch)
 
-router.get(`${ROUTERS.PRODUCT}/photo/:${productId}`, controllers.productPhoto)
+router.get(PRODUCT_PHOTO, controllers.productPhoto)
 
 module.exports = router

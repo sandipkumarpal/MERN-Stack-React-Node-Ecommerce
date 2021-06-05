@@ -1,16 +1,9 @@
 const ROOT_API_PATH = '/api'
 
-const ROUTERS = {
-  SIGNUP: '/signup',
-  SIGNIN: '/signin',
-  SIGNOUT: '/signout',
-  USER: '/user',
-  CATEGORY: '/category',
-  CATEGORY_CREATE: '/category/create',
-  CATEGORIES: '/categories',
-  PRODUCT: '/product',
-  PRODUCT_CREATE: '/product/create',
-  PRODUCTS: '/products'
+const ROUTER_PARAMS = {
+  USER_ID: 'userId',
+  CATEGORY_ID: 'categoryId',
+  PRODUCT_ID: 'productId'
 }
 
-module.exports = { ROOT_API_PATH, ROUTERS }
+module.exports = { ROOT_API_PATH, ROUTER_PARAMS }
