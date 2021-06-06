@@ -1,4 +1,5 @@
 const Product = require('../../models/product')
+const createError = require('http-errors')
 
 /*
  * It will find the products based on the req product category
@@ -14,7 +15,7 @@ const productsRelated = (req, res) => {
     .populate('category', '_id name')
     .exec((err, data) => {
       if (err) {
-        return res.status(400).json({ error: 'Products not found!' })
+        throw createError(400, 'Products not found!')
       }
       res.send(data)
     })

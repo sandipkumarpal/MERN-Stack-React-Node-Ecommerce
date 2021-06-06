@@ -1,4 +1,5 @@
 const Auth = require('../../models/auth')
+const createError = require('http-errors')
 
 const update = (req, res) => {
   const {
@@ -11,9 +12,7 @@ const update = (req, res) => {
     { new: true },
     (err, user) => {
       if (err) {
-        return res
-          .status(400)
-          .json({ error: 'You are not authorized to perform this action' })
+        throw createError(400, 'You are not authorized to perform this action')
       }
       res.json(user)
     }

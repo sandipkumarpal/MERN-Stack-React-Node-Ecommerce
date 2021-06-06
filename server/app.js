@@ -4,8 +4,9 @@ const cookieParser = require('cookie-parser')
 const { readdirSync } = require('fs')
 const morgan = require('morgan')
 const cors = require('cors')
-const csrf = require('csurf')
-
+const createError = require('http-errors')
+// const csrf = require('csurf')
+const { getErrorMessages } = require('./helpers/messages')
 // Import Config
 const { ROOT_API_PATH } = require('./config/router')
 
@@ -14,7 +15,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 // CSRF Protection
-const csrfProtection = csrf({ cookie: true })
+// const csrfProtection = csrf({ cookie: true })
 
 //  Create express app
 const app = express()
@@ -46,12 +47,29 @@ readdirSync('./routes').map(route =>
 app.get('/', (req, res) => res.send('Hello Node APP'))
 
 // We need this because "cookie" is true in csrfProtection
-app.use(csrfProtection)
+// app.use(csrfProtection)
 
-app.get('/api/csrf-token', (req, res) => {
-  // pass the csrfToken to the view
-  res.json({ csrfToken: req.csrfToken() })
+app.use((req, res, next) => {
+  const error = new createError.NotFound()
+  next(error)
 })
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).send(
+    getErrorMessages({
+      ...error,
+      status: error.status,
+      path: req.path,
+      timestamp: req._startTime
+    })
+  )
+  next(error)
+})
+
+// app.get('/api/csrf-token', (req, res) => {
+//   // pass the csrfToken to the view
+//   res.json({ csrfToken: req.csrfToken() })
+// })
 
 // Craete App Listen PORT
 const port = process.env.PORT || 8000

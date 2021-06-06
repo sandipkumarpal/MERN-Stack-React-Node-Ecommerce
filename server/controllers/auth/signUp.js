@@ -1,31 +1,34 @@
 const Auth = require('../../models/auth')
 const { errorHandler } = require('../../helpers/handleErrors')
 const { getHashedPassword } = require('../../helpers/auth')
+const createError = require('http-errors')
+const mongoose = require('mongoose')
 
 const emailRgx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-const signUp = async (req, res) => {
-  console.log('req.body', req.body)
+const signUp = async (req, res, next) => {
   try {
     const { name, password, email } = req.body
-    // Validation
     if (!name && !password && !email) {
-      return res
-        .status(400)
-        .send('Name, Password, Email and Phone number required')
+      throw createError(400, 'Name, Password, Email and Phone number required')
     }
-    if (!name) return res.status(400).send('Name is required!')
+    if (!name) {
+      throw createError(400, 'Name is required!')
+    }
     if (!password || password.length < 6) {
-      return res
-        .status(400)
-        .send('Password is required and should be min 6 characters long')
+      throw createError(
+        400,
+        'Password is required and should be min 6 characters long'
+      )
     }
     if (!emailRgx.test(email)) {
-      return res.status(400).send('Email not')
+      throw createError(400, 'User Email id is required!')
     }
 
-    let userExist = await Auth.findOne({ email }).exec()
-    if (userExist) return res.status(400).send('User Email is taken!')
+    const userExist = await Auth.findOne({ email }).exec()
+    if (userExist) {
+      throw createError(400, 'User Email is taken!')
+    }
 
     const hashedPassword = await getHashedPassword(password)
     const user = new Auth({ name, email, password: hashedPassword })
@@ -33,8 +36,11 @@ const signUp = async (req, res) => {
     await user.save()
     return res.json({ ok: true })
   } catch (error) {
-    console.log({ error })
-    return res.status(400).send(errorHandler(error))
+    // return res.status(400).send(errorHandler(error))
+    if (error instanceof mongoose.CastError) {
+      next(createError(404, 'Invalid Authneticate!'))
+    }
+    next(error)
   }
 }
 

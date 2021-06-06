@@ -2,8 +2,9 @@ const { IncomingForm } = require('formidable')
 const _ = require('lodash')
 const { errorHandler } = require('../../helpers/handleErrors')
 const Product = require('../../models/product')
+const createError = require('http-errors')
 
-const productUpdate = (req, res) => {
+const productUpdate = (req, res, next) => {
   try {
     // parse a file upload
     const form = new IncomingForm()
@@ -11,7 +12,7 @@ const productUpdate = (req, res) => {
     form.keepExtensions = true
     form.parse(req, (err, fields, file) => {
       if (err) {
-        return res.status(400).json({ error: 'Image could not be uploaded!' })
+        throw createError(400, 'Image could not be uploaded!')
       }
       console.log({ fields, file })
       const { name, description, price, category, quantity, shipping } = fields
@@ -24,7 +25,7 @@ const productUpdate = (req, res) => {
         !quantity ||
         !shipping
       ) {
-        return res.status(400).json({ error: 'All fields are required!' })
+        throw createError(400, 'All fields are required!')
       }
 
       let update = req.product
@@ -33,7 +34,7 @@ const productUpdate = (req, res) => {
       if (file.photo) {
         // Bellow (1mb = 1000000) photo size
         if (file.photo.size > 1000000) {
-          return res.status(400).json({ error: 'Image should be 1mb in size' })
+          throw createError(400, 'Image should be 1mb in size')
         }
         update.photo.data = file.photo.path
         update.photo.contentType = file.photo.type
@@ -47,8 +48,10 @@ const productUpdate = (req, res) => {
       })
     })
   } catch (error) {
-    console.log(error)
-    res.status(400).json({ error: errorHandler(error) })
+    if (error instanceof mongoose.CastError) {
+      next(createError(404, 'Invalid Product error!'))
+    }
+    next(error)
   }
 }
 

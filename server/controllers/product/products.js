@@ -1,4 +1,5 @@
 const Product = require('../../models/product')
+const createError = require('http-errors')
 
 const products = (req, res) => {
   console.log(req.query)
@@ -11,7 +12,7 @@ const products = (req, res) => {
     .limit(parseInt(limit))
     .exec((err, data) => {
       if (err) {
-        return res.status(400).json({ error: 'Products not found!' })
+        throw createError(400, 'Products not found!')
       }
       res.send(data)
     })
